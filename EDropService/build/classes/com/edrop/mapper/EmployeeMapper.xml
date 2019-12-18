@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.edrop.mapper.EmployeeMapper">
+<!-- 插入用户信息 -->
+<!-- 	<insert id="insOrderInfo"> -->
+<!-- 		insert into orders values(default, #{param1}, #{param2}, #{param3}, #{param4}, #{param5}, #{param6}, #{param7}, #{param8}, #{param9}, #{param10},#{param11}, #{param12}) -->
+<!-- 	</insert> -->
+<!-- (String phone, String qq, String username, String password, String imgpath, String imgname, String gender, Timestamp registerTime) -->
+	<insert id="insEmployeeInfo">
+		insert into employee values(default, #{param1}, #{param2}, #{param3}, #{param4}, #{param5}, #{param6}, #{param7}, #{param8})
+	</insert>
+	
+</mapper>

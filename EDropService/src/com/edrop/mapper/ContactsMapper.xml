@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.edrop.mapper.ContactsMapper">
+<!-- 随机查询十条题目 -->
+<!-- 	<select id="selRandData" resultType="competition"> -->
+<!-- 		SELECT * FROM competition ORDER BY RAND() LIMIT 10 -->
+<!-- 	</select> -->
+<!-- 	</resultMap> -->
+	<resultMap type="contacts" id="selContact1">
+		<id property="id" column="cid"/>
+		<result property="userId" column="cuserId"/>
+		<result property="employeeId" column="cemployeeId"/>
+		<association property="user" javaType="user">
+			<id property="id" column="uid"/>
+			<result property="phone" column="uphone"/>
+			<result property="qq" column="uqq"/>
+			<result property="username" column="uusername"/>
+			<result property="password" column="upassword"/>
+			<result property="imgpath" column="uimgpath"/>
+			<result property="imgname" column="uimgname"/>
+			<result property="address" column="uaddress"/>
+			<result property="detailAddress" column="udetailAddress"/>
+			<result property="gender" column="ugender"/>
+			<result property="registerTime" javaType="java.sql.Timestamp" column="uregisterTime"/>
+		</association>
+		<association property="employee" javaType="employee">
+			<id property="id" column="eid"/>
+			<result property="phone" column="ephone"/>
+			<result property="qq" column="eqq"/>
+			<result property="username" column="eusername"/>
+			<result property="password" column="epassword"/>
+			<result property="imgpath" column="eimgpath"/>
+			<result property="imgname" column="eimgname"/>
+			<result property="registerTime" javaType="java.sql.Timestamp" column="eregisterTime"/>
+			<result property="gender" column="egender"/>
+		</association>
+	</resultMap>
+<!-- 查询联系人列表 -->
+	<select id="selContactByUserIdOrEmployeeId" resultMap="selContact1">
+		select u.id uid,u.phone uphone,u.qq uqq,u.username uusername,u.password upassword,u.imgpath uimgpath,u.imgname uimgname,u.address uaddress,u.detailAddress udetailAddress,u.gender ugender,u.registerTime uregisterTime,
+e.id eid,e.phone ephone,e.qq eqq,e.username eusername,e.password epassword,e.imgpath eimgpath,e.imgname eimgname,e.gender egender,e.registerTime eregisterTime,
+c.id cid, c.userId cuserId, c.employeeId cemployeeId
+from contacts c,user u,employee e
+		<where>
+			<if test="param1 != null and param1 != ''">
+				and userId=#{param1}
+			</if>
+			<if test="param2 != null and param2 != ''">
+				and employeeId=#{param2}
+			</if>
+		</where>
+		and u.id=c.userId and c.employeeId=e.id
+	</select>
+</mapper>

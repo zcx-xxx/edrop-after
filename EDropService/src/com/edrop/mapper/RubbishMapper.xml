@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.edrop.mapper.RubbishMapper">
+
+<!-- 垃圾通过名字查询 -->
+	<resultMap type="rubbish" id="rubbishSelByName">
+		<id property="id" column="rid"/>
+		<result property="name" column="rname"/>
+		<result property="typeId" column="rtid"/>
+		<association property="type" javaType="type">
+			<id property="id" column="tid"/>
+			<result property="name" column="tname"/>
+		</association>
+	</resultMap>
+	<select id="selRubbishByName" resultMap="rubbishSelByName">
+		<bind name="name" value="'%' + param1 + '%'"/>
+		select 
+		rubbish.id rid, rubbish.name rname,rubbish.typeId rtid,
+		type.id tid, type.name tname, descr, demand, formula 
+		from rubbish, type 
+		where rubbish.name like #{name} and rubbish.typeId=type.id
+	</select>
+
+</mapper>

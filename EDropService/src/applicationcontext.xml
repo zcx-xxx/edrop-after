@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:tx="http://www.springframework.org/schema/tx"
+		xmlns:aop="http://www.springframework.org/schema/aop"
+	    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	    https://www.springframework.org/schema/beans/spring-beans.xsd
+	    http://www.springframework.org/schema/context
+	    https://www.springframework.org/schema/context/spring-context.xsd
+	    http://www.springframework.org/schema/aop
+	    https://www.springframework.org/schema/aop/spring-aop.xsd
+	    http://www.springframework.org/schema/tx
+	    https://www.springframework.org/schema/tx/spring-tx.xsd"
+	    default-autowire="byName">
+	    
+	    
+	    <!-- 配置注解扫描 -->
+	    <context:component-scan base-package="com.edrop.service.impl"></context:component-scan>
+	    
+	    <!-- 配置属性文件扫描 -->
+	    <context:property-placeholder location="classpath:db.properties"></context:property-placeholder>
+	    <!-- 配置数据源 bean -->
+	    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	    	<property name="driverClassName" value="${jdbc.driver}"></property>
+	    	<property name="url" value="${jdbc.url}"></property>
+	    	<property name="username" value="${jdbc.username}"></property>
+	    	<property name="password" value="${jdbc.password}"></property>
+	    </bean>
+	    
+	    <!-- 配置工厂 bean -->
+	    <bean id="factory" class="org.mybatis.spring.SqlSessionFactoryBean">
+			<property name="typeAliasesPackage" value="com.edrop.pojo"/>
+	    </bean>
+	    
+	    <!-- 配置 mapper 扫描 bean -->
+	    <bean id="mapper" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+	    	<property name="sqlSessionFactoryBeanName" value="factory"></property>
+	    	<property name="basePackage" value="com.edrop.mapper"></property>
+	    </bean>
+	    
+	    <!-- 配置服务层  bean 对象 -->
+<!-- 	    <bean id="userService" class="com.edrop.service.impl.UserServiceImpl"> -->
+<!-- 	    	<property name="mapper" ref="userMapper"></property> -->
+<!-- 	    </bean> -->
+		<!-- 配置事务管理方法 :
+			对 Dao 层的代码进行事务管理
+		-->
+	    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"></bean>
+	    <tx:advice id="advice" transaction-manager="transactionManager">
+	    	<tx:attributes>
+	    		<tx:method name="sel*" read-only="true"/>
+	    		<tx:method name="ins*"/>
+	    		<tx:method name="up*"/>
+	    		<tx:method name="del*"/>
+	    	</tx:attributes>
+	    </tx:advice>
+	    
+	    <!-- 配置 AOP 切面 -->
+	    <aop:config>
+	    	<aop:pointcut expression="execution(* com.*.service.*.*.*(..))" id="mp"/>
+	    	<aop:advisor advice-ref="advice" pointcut-ref="mp"/>
+	    </aop:config>
+	    
+</beans>

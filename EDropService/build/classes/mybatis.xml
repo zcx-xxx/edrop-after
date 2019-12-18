@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 配置 DTD 数据校验格式 -->
+<!DOCTYPE configuration
+	PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- 开启 log4j 支持 -->
+	<settings>
+		<setting name="logImpl" value="LOG4J"/>
+	</settings>
+	
+	<!-- 配置实体类别名 -->
+<!-- 	<typeAliases> -->
+		<!-- 给某一个包下的某一个类设置别名 ,一般为不同包下具有相同的类名
+			在 StudentsMapper.xml 文件中直接使用  s 即可
+		-->
+<!-- 		<typeAlias type="com.zcx.pojo.Student" alias="s"/> -->
+		
+		<!-- 为某一个包下的类统一设置别名 
+		在 StudentsMapper.xml 文件中直接使用类名即可
+		-->
+<!-- 		<package name="com.edrop.pojo"/> -->
+<!-- 	</typeAliases> -->
+	
+	<!-- 配置指定的数据库，default 表示默认使用的数据库 -->
+	<environments default="mysql">
+		<!-- 具体的数据库设置 -->
+		<environment id="mysql">
+
+			<!-- 配置数据库的事务管理 -->
+			<!-- 
+				JDBC：表示使用原生的 JDBC 进行管理
+				MANAGED：将事务的管理交由容器进行管理，比如　Spring
+			 -->
+			<transactionManager type="JDBC"/>
+			
+			<!-- 配置具体的数据库参数　type=POOLED, 表示使用数据库连接池-->
+			<dataSource type="POOLED">
+				<property name="driver" value="com.mysql.jdbc.Driver"/>
+				<property name="url" value="jdbc:mysql://localhost:3306/edropdatabase"/>
+				<property name="username" value="root"/>
+				<property name="password" value="123456"/>
+			</dataSource>
+		</environment>
+	</environments>
+	
+	<!-- 配置动态代理扫描包-->
+	<mappers>
+		<package name="com.edrop.mapper"/>
+	</mappers>
+</configuration>
