@@ -12,9 +12,11 @@ import java.sql.Timestamp;
 
 import javax.annotation.Resource;
 
+import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
+import com.edrop.controller.UserController;
 import com.edrop.mapper.UserMapper;
 import com.edrop.pojo.User;
 import com.edrop.service.UserService;
@@ -23,6 +25,8 @@ import com.edrop.utils.Constant;
 import com.edrop.utils.MD5Utils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.mysql.jdbc.log.Log;
+
 
 /**
  * @ClassName: UserServiceImpl
@@ -176,6 +180,8 @@ public class UserServiceImpl implements UserService {
 		return object.toString();
 	}
 	
+	private static Logger log = Logger.getLogger(UserController.class);
+	
 	/**
 	 * 跟新用户信息
 	 * (非 Javadoc)
@@ -202,6 +208,9 @@ public class UserServiceImpl implements UserService {
 		
 		int index = userMapper.upUserInfo(id, phone, qq, username, password, imgpath, imgname, address, gender, detailAddress);
 		
+		System.out.println("test[upuserInfo]" + index);
+//		log.info(index);
+//		log.debug(index);
 		JSONObject object = new JSONObject();
 		
 		if(index <= 0) {

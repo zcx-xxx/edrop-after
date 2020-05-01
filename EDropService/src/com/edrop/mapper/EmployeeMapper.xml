@@ -4,13 +4,32 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace="com.edrop.mapper.EmployeeMapper">
-<!-- 插入用户信息 -->
-<!-- 	<insert id="insOrderInfo"> -->
-<!-- 		insert into orders values(default, #{param1}, #{param2}, #{param3}, #{param4}, #{param5}, #{param6}, #{param7}, #{param8}, #{param9}, #{param10},#{param11}, #{param12}) -->
-<!-- 	</insert> -->
-<!-- (String phone, String qq, String username, String password, String imgpath, String imgname, String gender, Timestamp registerTime) -->
+	<resultMap type="employee" id="employeeMap">
+		<id column="id" property="id"/>
+		<result column="phone" property="phone"/>
+		<result column="qq" property="qq"/>
+		<result column="username" property="username"/>
+		<result column="password" property="password"/>
+		<result column="imgname" property="imgname"/>
+		<result column="imgpath" property="imgpath"/>
+		<result column="gender" property="gender"/>
+		<result column="registerTime" property="registerTime"/>
+		<result column="last_operation_time" property="lastOperationTime"/>
+	</resultMap>
+	
+	<!-- 插入用户信息 -->
 	<insert id="insEmployeeInfo">
-		insert into employee values(default, #{param1}, #{param2}, #{param3}, #{param4}, #{param5}, #{param6}, #{param7}, #{param8})
+		insert into employee(id, phone, qq, username, password, imgpath, imgname, gender, registerTime) 
+		values(default, #{phone}, #{qq}, #{username}, #{password}, #{imgpath}, #{imgname}, #{gender}, #{registerTime})
 	</insert>
 	
+	<!-- 用户名查询员工信息 -->
+	<select id="selEmployeeByUsername" resultMap="employeeMap">
+		select * from employee where username=#{username}
+	</select>
+	
+	<!-- id 查询员工 -->
+	<select id="selEmployeeInfoById" resultMap="employeeMap">
+		select * from employee where id=#{id}
+	</select>
 </mapper>

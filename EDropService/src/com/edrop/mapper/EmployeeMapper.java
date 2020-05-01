@@ -10,6 +10,7 @@ package com.edrop.mapper;
 
 import java.sql.Timestamp;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import com.edrop.pojo.Employee;
@@ -22,15 +23,14 @@ import com.edrop.pojo.Employee;
  *
  */
 public interface EmployeeMapper {
-	@Select("select * from employee where username like #{param1}")
-	public Employee selEmployeeByUsername(String username);
+	// by username query Employee
+	public Employee selEmployeeByUsername(@Param("username")String username);
 	
 	//插入用户数据
-	public int insEmployeeInfo(String phone, String qq, String username, String password, String imgpath, String imgname, String gender, Timestamp registerTime);
-
-	/*
-	 * 根据 id 查询用户信息
-	 */
-	@Select("select * from employee where id=#{param1}")
-	public Employee selEmployeeInfoById(Integer id);
+	public int insEmployeeInfo(@Param("phone")String phone, @Param("qq")String qq, @Param("username")String username, 
+			@Param("password")String password, @Param("imgpath")String imgpath, @Param("imgname")String imgname, 
+			@Param("gender")String gender, @Param("registerTime")Timestamp registerTime);
+	
+	// by id query Employee
+	public Employee selEmployeeInfoById(@Param("id")Integer id);
 }

@@ -35,6 +35,8 @@ public class UserController {
 	@Resource
 	private UserService userServiceImpl;
 	
+//	@RequestMapping("/test")
+	
 	//使用用户名和密码判断用户是否存在
 	@RequestMapping("loginByUsernameAndPassword")
 	public void loginByUsernameAndPassword(String username, String password, HttpServletResponse response) {
@@ -107,7 +109,9 @@ public class UserController {
 	
 	//更新用户数据
 	@RequestMapping("addUserInfo")
-	public void addUserInfo(HttpServletRequest request, HttpServletResponse response, Integer id, String detailAddress, String phone, String qq, String username, String password, MultipartFile imgFile, String address, String gender) throws UniformInterfaceException, IOException {
+	public void addUserInfo(HttpServletRequest request, HttpServletResponse response,
+			Integer id, String detailAddress, String phone, String qq, String username, 
+			String password, MultipartFile imgFile, String address, String gender) throws UniformInterfaceException, IOException {
 		System.out.println(id + " " + gender);
 		String newName = "";
 		

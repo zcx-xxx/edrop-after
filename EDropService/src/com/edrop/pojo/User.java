@@ -30,24 +30,15 @@ public class User {
 	private String gender;
 	private	Timestamp registerTime;
 	private String detailAddress;
-	
+	private Timestamp lastOperationTime;
+	public Timestamp getLastOperationTime() {
+		return lastOperationTime;
+	}
+	public void setLastOperationTime(Timestamp lastOperationTime) {
+		this.lastOperationTime = lastOperationTime;
+	}
 	public String getDetailAddress() {
 		return detailAddress;
-	}
-	public User(Integer id, String phone, String qq, String username, String password, String imgname, String imgpath,
-			String address, String gender, Timestamp registerTime, String detailAddress) {
-		super();
-		this.id = id;
-		this.phone = phone;
-		this.qq = qq;
-		this.username = username;
-		this.password = password;
-		this.imgname = imgname;
-		this.imgpath = imgpath;
-		this.address = address;
-		this.gender = gender;
-		this.registerTime = registerTime;
-		this.detailAddress = detailAddress;
 	}
 	public void setDetailAddress(String detailAddress) {
 		this.detailAddress = detailAddress;
@@ -111,15 +102,5 @@ public class User {
 	}
 	public void setRegisterTime(Timestamp registerTime) {
 		this.registerTime = registerTime;
-	}
-	public User() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", phone=" + phone + ", qq=" + qq + ", username=" + username + ", password="
-				+ password + ", imgname=" + imgname + ", imgpath=" + imgpath + ", address=" + address + ", gender="
-				+ gender + ", registerTime=" + registerTime + ", detailAddress=" + detailAddress + "]";
 	}
 }

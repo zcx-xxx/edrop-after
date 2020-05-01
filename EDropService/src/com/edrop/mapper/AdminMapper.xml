@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.edrop.mapper.AdminMapper">
+	<resultMap type="admin" id="adminMap">
+		<id property="id" column="id"/>
+		<result column="username" property="userName"/>
+		<result column="password" property="password"/>
+		<result column="register_time" property="registerTime"/>
+		<result column="last_login_time" property="lastLoginTime"/>
+	</resultMap>
+	<!-- select admin by username and password -->
+	<select id="selectAdminByUserNameAndPassword" resultMap="adminMap">
+		select * from admin where username like #{param1} and password like #{param2}
+	</select>
+	
+	<!-- select admin by username -->
+	<select id="selectAdminByUserName" resultMap="adminMap">
+		select * from admin where username like #{param1}
+	</select>
+</mapper>

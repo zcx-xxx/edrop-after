@@ -10,6 +10,7 @@ package com.edrop.mapper;
 
 import java.sql.Timestamp;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import com.edrop.pojo.User;
@@ -24,24 +25,29 @@ import com.edrop.pojo.User;
 public interface UserMapper {
 
 	//通过用户名查询用户的信息
-	@Select("select * from user where username like #{param1}")
-	public User selUserByUsername(String username);
+//	@Select("select * from user where username like #{username}")
+	public User selUserByUsername(@Param("username")String username);
 	
 	//通过电话查询用户的信息
-	@Select("select * from user where phone like #{param1}")
-	public User selUserByPhone(String phone);
+//	@Select("select * from user where phone like #{phone}")
+	public User selUserByPhone(@Param("phone")String phone);
 
 	//通过 qq 查询用户的信息
-	@Select("select * from user where qq like #{param1}")
-	public User selUserByQq(String qq);
+//	@Select("select * from user where qq like #{param1}")
+	public User selUserByQq(@Param("qq")String qq);
 
 	//跟新用户信息
-	public int upUserInfo(Integer id, String phone, String qq, String username, String password, String imgpath, String imgname, String address, String gender, String detailAddress);
+	public int upUserInfo(@Param("id")Integer id, @Param("phone")String phone, @Param("qq")String qq, 
+			@Param("username")String username, @Param("password")String password, @Param("imgpath")String imgpath,
+			@Param("imgname")String imgname, @Param("address")String address, @Param("gender")String gender,
+			@Param("detailAddress")String detailAddress);
 	
 	//插入用户数据
-	public int insUserInfo(String phone, String qq, String username, String password, String imgpath, String imgname, String address, String detailAddress, String gender, Timestamp registerTime);
+	public int insUserInfo(@Param("phone")String phone, @Param("qq")String qq, @Param("username")String username, 
+			@Param("password")String password, @Param("imgpath")String imgpath, @Param("imgname")String imgname,
+			@Param("address")String address, @Param("detailAddress")String detailAddress, @Param("gender")String gender, 
+			@Param("registerTime")Timestamp registerTime);
 
-	//密码查询用户信息
-	@Select("select * from user where id = #{param1}")
-	public User selUserInfoById(Integer id);
+	//id 查询用户信息
+	public User selUserInfoById(@Param("id")Integer id);
 }

@@ -28,6 +28,13 @@ public class Employee {
 	private String imgpath;
 	private Timestamp registerTime;
 	private String gender;
+	private Timestamp lastOperationTime;
+	public Timestamp getLastOperationTime() {
+		return lastOperationTime;
+	}
+	public void setLastOperationTime(Timestamp lastOperationTime) {
+		this.lastOperationTime = lastOperationTime;
+	}
 	public Integer getId() {
 		return id;
 	}

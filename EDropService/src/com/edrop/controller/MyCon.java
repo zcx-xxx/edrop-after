@@ -41,8 +41,9 @@ public class MyCon {
 //		return;
 //	}
 	
-	@RequestMapping("hello")
-	public void hello() {
-//		System.out.println("hello");
+	@RequestMapping("/hello")
+	public String hello() {
+		System.out.println("hello");
+		return "test";
 	}
 }

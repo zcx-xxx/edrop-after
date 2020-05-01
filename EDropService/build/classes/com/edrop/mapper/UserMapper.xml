@@ -5,45 +5,82 @@
 
 <!-- namespace 不是必须为类的全限定名,只要是能够保证不重复即可 -->
 <mapper namespace="com.edrop.mapper.UserMapper">
+	<resultMap type="user" id="userMap">
+		<id column="id" property="id"/>
+		<result column="phone" property="phone"/>
+		<result column="qq" property="qq"/>
+		<result column="username" property="username"/>
+		<result column="password" property="password"/>
+		<result column="imgname" property="imgname"/>
+		<result column="imgpath" property="imgpath"/>
+		<result column="address" property="address"/>
+		<result column="gender" property="gender"/>
+		<result column="registerTime" property="registerTime"/>
+		<result column="detailAddress" property="detailAddress"/>
+		<result column="last_operation_time" property="lastOperationTime"/>
+	</resultMap>
+	
+	<!-- 根据 username 查询用户信息  -->
+	<select id="selUserByUsername" resultMap="userMap">
+		select * from user where username like #{username}
+	</select>
+	
+	<!-- 手机查询用户 -->
+	<select id="selUserByPhone" resultMap="userMap">
+		select * from user where phone like #{phone}
+	</select>
+
+	<!-- qq查询用户  -->
+	<select id="selUserByQq" resultMap="userMap">
+		select * from user where qq like #{qq}
+	</select>
+	
+	<!-- id 查询用户信息 -->
+	<select id="selUserInfoById" resultMap="userMap">
+		select * from user where id = #{id}
+	</select>
 	
 	<!-- 插入用户信息 -->
 	<insert id="insUserInfo">
-		insert into user values(default, #{param1}, #{param2}, #{param3}, #{param4}, #{param5}, #{param6}, #{param7}, #{param8}, #{param9}, #{param10})
+		insert into user(id, phone, qq, username, password, imgpath, imgname, 
+		address, detailAddress, gender, registerTime)
+		 values(default, #{phone}, #{qq}, #{username}, #{password}, #{imgpath}, #{imgname}, 
+		#{address}, #{detailAddress}, #{gender}, #{registerTime})
 	</insert>
 	
 	<!-- 跟新用户数据 -->
 	<update id="upUserInfo">
 		update user
 	 	<set>
-	 		id = #{param1},
-	 		<if test="param2 != '' and param2 != null">
-	 			phone = #{param2},
+	 		id = #{id},
+	 		<if test="phone != '' and phone != null">
+	 			phone = #{phone},
 	 		</if>
-	 		<if test="param3 != '' and param3 != null">
-	 			qq = #{param3},
+	 		<if test="qq != '' and qq != null">
+	 			qq = #{qq},
 	 		</if>
-	 		<if test="param4 != '' and param4 != null">
-	 			username = #{param4},
+	 		<if test="username != '' and username!= null">
+	 			username = #{username},
 	 		</if>
-	 		<if test="param5 != '' and param5 != null">
-	 			password = #{param5},
+	 		<if test="password != '' and password != null">
+	 			password = #{password},
 	 		</if>
-	 		<if test="param6 != '' and param6 != null">
-	 			imgpath = #{param6},
+	 		<if test="imgpath != '' and imgpath != null">
+	 			imgpath = #{imgpath},
 	 		</if>
-	 		<if test="param7 != '' and param7 != null">
-	 			imgname = #{param7},
+	 		<if test="imgname != '' and imgname != null">
+	 			imgname = #{imgname},
 	 		</if>
-	 		<if test="param8 != '' and param8 != null">
-	 			address = #{param8},
+	 		<if test="address != '' and address!= null">
+	 			address = #{address},
 	 		</if>
-	 		<if test="param9 != '' and param9 != null">
-	 			gender = #{param9},
+	 		<if test="gender != '' and gender != null">
+	 			gender = #{gender},
 	 		</if>
-	 		<if test="param10 != '' and param10 != null">
-	 			detailAddress = #{param10},
+	 		<if test="detailAddress != '' and detailAddress != null">
+	 			detailAddress = #{detailAddress },
 	 		</if>
 	 	</set>
-	 	where id = #{param1}
+	 	where id = #{id}
 	</update>
 </mapper>
